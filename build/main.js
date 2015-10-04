@@ -460,88 +460,101 @@ function _editor(){
                 return '<br>'
             },
     }
-    this.toHTML = ''
+    this.toHTML = ['']
+    this.toTEXT = ['']
+    this.toTEXTBUFFER = ''
     var verifyHighlight = this.verifyHighlight
     this.tokenize = function(){
-        var s = this.innerText
-            .replace(/\n/gm,'%#%NnN%#%')
-            .replace(/\s/gm,' SsS ')
-            .replace(/([\W]+)/gm,' $1 ')
-            .replace(/(%#%)+/gm, ' ')
-            .split(/\s+/)
-        /* var keywordMapper = */ // external declaration //
-        var line_comment = Infinity
-        var multiline_comment = Infinity
-        this.toHTML = s.map(function(w,i,me){
-            var token = w
-            if (w.match(keywordMapper["multiline.comment.open"])) {
-                multiline_comment = Math.min(i+1, multiline_comment)
-                token = "<ace_comment>"+w
-            } else
-            if (w.match(keywordMapper["multiline.comment.close"])) {
-                multiline_comment = Infinity
-                token = w+"</ace_comment>"
-            } else
-            if (multiline_comment && (i>multiline_comment-1)) {
-                if (w.match(keywordMapper["newline"])) {
-                    token = verifyHighlight[w]() 
-                } else 
-                if (w=='SsS') {
-                    token = verifyHighlight[w]()
+        if (this.toTEXTBUFFER != this.innerText) {
+            this.toTEXTBUFFER = this.innerText
+            var s = this.innerText
+                .replace(/\n/gm,'%#%NnN%#%')
+                .replace(/\s/gm,' SsS ')
+                .replace(/([\W]+)/gm,' $1 ')
+                .replace(/(%#%)+/gm, ' ')
+                .split(/\s+/)
+            var _s = s
+            /* var keywordMapper = */ // external declaration //
+            var line_comment = Infinity
+            var multiline_comment = Infinity
+            var __toTEXT = this.toTEXT
+            var __toHTML = this.toHTML
+            this.toHTML = s.map(function(w,i,me){
+                if ( !__toTEXT || !(i in __toTEXT) || (__toTEXT[i] != me[i])) {
+                    var token = w
+                    if (w.match(keywordMapper["multiline.comment.open"])) {
+                        multiline_comment = Math.min(i+1, multiline_comment)
+                        token = "<ace_comment>"+w
+                    } else
+                    if (w.match(keywordMapper["multiline.comment.close"])) {
+                        multiline_comment = Infinity
+                        token = w+"</ace_comment>"
+                    } else
+                    if (multiline_comment && (i>multiline_comment-1)) {
+                        if (w.match(keywordMapper["newline"])) {
+                            token = verifyHighlight[w]() 
+                        } else 
+                        if (w=='SsS') {
+                            token = verifyHighlight[w]()
+                        } else {
+                            // NOP //
+                        }
+                    } else
+                    if (w.match(keywordMapper["line.comment"]) && (line_comment==Infinity)) {
+                        line_comment = Math.min(i+1, line_comment)
+                        token = "<ace_comment>"+w
+                    } else
+                    if (w.match(keywordMapper["newline"]) && (line_comment!=Infinity)) {
+                        line_comment = Infinity
+                        token = "</ace_comment><br>"
+                    } else
+                    if (w.match(keywordMapper["newline"])) {
+                        token = verifyHighlight[w]()
+                    } else
+                    if ((line_comment!=Infinity) && (i>line_comment-1) ) {
+                        if (w=='SsS') {
+                            token = verifyHighlight[w]()
+                        } else {
+                            // NOP //
+                        }
+                    } else
+                    if (w.match(keywordMapper["variable.language"])) {
+                        token = "<ace_variable>"+w+"</ace_variable>"
+                    } else
+                    if (w.match(keywordMapper["keyword"])) {
+                        token = "<ace_keyword>"+w+"</ace_keyword>"
+                    } else
+                    if (w.match(keywordMapper["storage.type"])) {
+                        token = "<ace_storage>"+w+"</ace_storage>"
+                    } else
+                    if (w.match(keywordMapper["constant.language"])) {
+                        token = "<ace_constant>"+w+"</ace_constant>"
+                    } else
+                    if (w.match(keywordMapper["support.function"])) {
+                        token = "<ace_function>"+w+"</ace_function>"
+                    } else 
+                    if (w.match(keywordMapper["constant.language.boolean"])) {
+                        token = "<ace_constant>"+w+"</ace_constant>"
+                    } else
+                    if (w.match(keywordMapper["numeric"])) {
+                        token = "<ace_numeric>"+w+"</ace_numeric>"
+                    } else
+                    if (w.match(keywordMapper["operator"])) {
+                        token = "<ace_operator>"+w+"</ace_operator>"
+                    } else
+                    if (((line_comment!=Infinity) || (multiline_comment!=Infinity)) && (i==me.length-1)) {
+                        token = w+"</ace_comment>"
+                    } else 
+                    if (w=='SsS') {
+                        token = verifyHighlight[w]()
+                    } 
                 } else {
-                    // NOP //
+                    token = __toHTML[i]
                 }
-            } else
-            if (w.match(keywordMapper["line.comment"]) && (line_comment==Infinity)) {
-                line_comment = Math.min(i+1, line_comment)
-                token = "<ace_comment>"+w
-            } else
-            if (w.match(keywordMapper["newline"]) && (line_comment!=Infinity)) {
-                line_comment = Infinity
-                token = "</ace_comment><br>"
-            } else
-            if (w.match(keywordMapper["newline"])) {
-                token = verifyHighlight[w]()
-            } else
-            if ((line_comment!=Infinity) && (i>line_comment-1) ) {
-                if (w=='SsS') {
-                    token = verifyHighlight[w]()
-                } else {
-                    // NOP //
-                }
-            } else
-            if (w.match(keywordMapper["variable.language"])) {
-                token = "<ace_variable>"+w+"</ace_variable>"
-            } else
-            if (w.match(keywordMapper["keyword"])) {
-                token = "<ace_keyword>"+w+"</ace_keyword>"
-            } else
-            if (w.match(keywordMapper["storage.type"])) {
-                token = "<ace_storage>"+w+"</ace_storage>"
-            } else
-            if (w.match(keywordMapper["constant.language"])) {
-                token = "<ace_constant>"+w+"</ace_constant>"
-            } else
-            if (w.match(keywordMapper["support.function"])) {
-                token = "<ace_function>"+w+"</ace_function>"
-            } else 
-            if (w.match(keywordMapper["constant.language.boolean"])) {
-                token = "<ace_constant>"+w+"</ace_constant>"
-            } else
-            if (w.match(keywordMapper["numeric"])) {
-                token = "<ace_numeric>"+w+"</ace_numeric>"
-            } else
-            if (w.match(keywordMapper["operator"])) {
-                token = "<ace_operator>"+w+"</ace_operator>"
-            } else
-            if (((line_comment!=Infinity) || (multiline_comment!=Infinity)) && (i==me.length-1)) {
-                token = w+"</ace_comment>"
-            } else 
-            if (w=='SsS') {
-                token = verifyHighlight[w]()
-            } 
-            return token
-        })
+                return token
+            })
+            this.toTEXT = _s
+        }
     }
     this.annotate = function(){
         this.innerHTML = this.toHTML.join('') || this.innerHTML

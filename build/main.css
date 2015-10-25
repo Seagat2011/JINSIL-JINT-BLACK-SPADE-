@@ -7,7 +7,8 @@
     padding-top: 4px;
     padding-left:2px;
     font-size:9pt;
-    font-family:bitstream vera sans mono;
+    font-family:monospace; /*bitstream vera sans mono;*/
+    outline:none;
 }
 .divSettingsPane {
     float:left;
@@ -18,7 +19,7 @@
 .cssScroll {
     padding-top: 4px;
     width:40px;
-    font-family:bitstream vera sans mono;
+    font-family:monospace; /*bitstream vera sans mono;*/
     font-size:9pt;
     float:left;
     background:#dedede;

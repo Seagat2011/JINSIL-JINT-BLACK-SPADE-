@@ -432,8 +432,8 @@ function _editor(){
     this.getTime = function() { return new Date().getTime() }
     this.startTime = this.getTime()
     this.invalidateFlag = false
-    this.spellcheck = false
-    this.contentEditable = true
+    //this.spellcheck = false
+    //this.contentEditable = true
     display_indent_guides.value = "off"
     this.getCursor = function() {
         return document.getSelection().focusOffset
@@ -444,8 +444,8 @@ function _editor(){
         }
     }
     this.resize = function(ht){
-        if (ht && (ht>this.clientHeight)) {
-            this.style.height = ht
+        if (ht && (ht>__editor__.clientHeight)) {
+            __editor__.style.height = ht
         }
     }
     this.verifyHighlight = {
@@ -465,9 +465,9 @@ function _editor(){
     this.toTEXTBUFFER = ''
     var verifyHighlight = this.verifyHighlight
     this.tokenize = function(){
-        if (this.toTEXTBUFFER != this.innerText) {
-            this.toTEXTBUFFER = this.innerText
-            var s = this.innerText
+        if (this.toTEXTBUFFER != __editor__.innerText) {
+            this.toTEXTBUFFER = __editor__.innerText
+            var s = __editor__.innerText
                 .replace(/\n/gm,'%#%NnN%#%')
                 .replace(/\s/gm,' SsS ')
                 .replace(/([\W]+)/gm,' $1 ')
@@ -557,7 +557,7 @@ function _editor(){
         }
     }
     this.annotate = function(){
-        this.innerHTML = this.toHTML.join('') || this.innerHTML
+        __editor__.innerHTML = this.toHTML.join('') || __editor__.innerHTML
     }
     this.keybuff
     this.invalidate = function() {
@@ -598,18 +598,18 @@ function _rows(){
         this.rows = []
         startIDX = startIDX || 0
         ht = ht || editor_shell.clientHeight
-        if (editor.clientHeight>ht) {
-            ht = editor.clientHeight
+        if (__editor__.clientHeight>ht) {
+            ht = __editor__.clientHeight
         } 
-        if (editor.scrollHeight>ht) {
-            ht = editor.scrollHeight
+        if (__editor__.scrollHeight>ht) {
+            ht = __editor__.scrollHeight
         }
         if ( ht != this.lastResizeNum ) {
             var B = parseInt((ht/this.fontsize)*0.65) /* 12pt:0.80; 13pt:0.75; 9pt:0.65 */
             for (var b = startIDX; b<B; b++) {
                 this.rows.push(b+1)
             }
-            this.innerText = this.rows.join('\n')
+            __rows__.innerText = this.rows.join('\n')
             this.lastResizeNum = ht
         }
     }

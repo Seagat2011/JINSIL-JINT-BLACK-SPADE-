@@ -1,0 +1,6 @@
+BLACK SPADE EDITOR
+    javascript sourcecode editor - written in HTML5,CSS3, & javascript
+
+BUGFIXES
+    SYMP: call to document.getElementById returns null value
+    SOLU: include DEFER javascript tag to defer call

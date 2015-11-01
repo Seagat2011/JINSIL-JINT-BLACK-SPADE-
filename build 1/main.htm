@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<title> main window - 1.0.0.0</title>
+<meta http-equiv="Content-Type" content="application/html; charset=utf-8"/>
+<!--
+
+TITLE: 
+  MAIN.HTM
+
+AUTHOR: Seagat2011 
+  http://fold.it/port/user/1992490
+  http://eterna.cmu.edu/web/player/90270/
+
+VERSION: 
+  Major.Minor.Release.Build
+  1.0.0.0
+
+STYLEGUIDE: 
+  http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+    
+REFERENCES:
+  N/A
+
+DESCRIPTION: 
+  JINSIL / JINT BLACK SPADE demonstration interface
+
+INPUT:
+  plain text
+
+OUTPUT:
+  pretty-text
+  
+SCRIPT TYPE: 
+  pretty-text renderer
+  
+-->
+<link rel='stylesheet' media='all' href='main.css'>
+<link id=__theme__ rel='stylesheet' media='all' href='editor/theme/chrome.css'>
+<link rel='stylesheet' media='all' href='editor/main.css'>
+<script id=__mode__ src='editor/mode/javascript_highlight_rules.js'></script>
+<script src='editor/main.js' defer></script>
+<script src='main.js' defer></script>
+</head>
+<body>
+<div class=divSettingsPane>
+<table id="controls">
+<tbody>
+    <tr>
+      <td >
+        <label>Mode</label>
+      </td><td>
+        <select id="mode" size="1">
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>Split</label>
+      </td><td>
+        <select id="split" size="1">
+          <option value="none">None</option>
+          <option value="below">Below</option>
+          <option value="beside">Beside</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Theme</label>
+      </td><td>
+        <select id="theme" size="1">
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>Font Size</label>
+      </td><td>
+        <select id="fontsize" size="1">
+          <option value="10pt" selected="selected">10pt</option>
+          <option value="11pt">11pt</option>
+          <option value="12pt">12pt</option>
+          <option value="13pt">13pt</option>
+          <option value="14pt">14pt</option>
+          <option value="16pt">16pt</option>
+          <option value="18pt">18pt</option>
+          <option value="20pt">20pt</option>
+          <option value="24pt">24pt</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>Code Folding</label>
+      </td><td>
+        <select id="folding" size="1">
+          <option value="manual">manual</option>
+          <option value="markbegin" selected="selected">mark begin</option>
+          <option value="markbeginend">mark begin and end</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Key Binding</label>
+      </td><td>
+        <select id="keybinding" size="1">
+          <option value="ace">Ace</option>
+          <option value="vim">Vim</option>
+          <option value="emacs">Emacs</option>
+          <option value="custom">Custom</option>
+        </select>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Soft Wrap</label>
+      </td><td>
+        <select id="soft_wrap" size="1">
+          <option value="off">Off</option>
+          <option value="40">40 Chars</option>
+          <option value="80">80 Chars</option>
+          <option value="free">Free</option>
+        </select>
+      </td>
+    </tr>
+
+    <tr><td colspan="2">
+    <table id="more-controls">
+    <tr>
+      <td>
+        <label>Full Line Selection</label>
+      </td><td>
+        <input type="checkbox" id="select_style" checked>
+      </td>
+    </tr>
+    <tr>
+      <td>
+        <label>Highlight Active Line</label>
+      </td><td>
+        <input type="checkbox" id="highlight_active" checked>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Show Invisibles</label>
+      </td><td>
+        <input type="checkbox" id="show_hidden" checked>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Show Indent Guides</label>
+      </td><td>
+        <input type="checkbox" id="display_indent_guides" >
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Persistent HScroll</label>
+      </td><td>
+        <input type="checkbox" id="show_hscroll">
+            <label>VScroll</label>
+        <input type="checkbox" id="show_vscroll">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Animate scrolling</label>
+      </td><td>
+        <input type="checkbox" id="animate_scroll">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Show Gutter</label>
+      </td><td>
+        <input type="checkbox" id="show_gutter" checked>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Show Print Margin</label>
+      </td><td>
+        <input type="checkbox" id="show_print_margin" checked>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Use Soft Tab</label>
+      </td><td>
+        <input type="checkbox" id="soft_tab" checked>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Highlight selected word</label>
+      </td>
+      <td>
+        <input type="checkbox" id="highlight_selected_word" checked>
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Enable Behaviours</label>
+      </td>
+      <td>
+        <input type="checkbox" id="enable_behaviours">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Fade Fold Widgets</label>
+      </td>
+      <td>
+        <input type="checkbox" id="fade_fold_widgets">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Enable Elastic Tabstops</label>
+      </td>
+      <td>
+        <input type="checkbox" id="elastic_tabstops">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Incremental Search</label>
+      </td>
+      <td>
+        <input type="checkbox" id="isearch">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Show token info</label>
+      </td>
+      <td>
+        <input type="checkbox" id="highlight_token">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Read-only</label>
+      </td>
+      <td>
+        <input type="checkbox" id="read_only">
+      </td>
+    </tr>
+    <tr>
+      <td >
+        <label>Scroll Past End</label>
+      </td>
+      <td>
+        <input type="checkbox" id="scrollPastEnd" checked>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        &nbsp;
+      </td>
+    </tr>
+  </table>
+  </td></tr>
+  </tbody>
+  </table>
+</div>
+<div id=__container__>
+<div id=__rows__></div>
+<div id=__editor__>
+<div  class=code id=te spellcheck="false" autocapitalize="off" autocorrect="off" contenteditable="true" style="
+   -webkit-text-fill-color:rgba(0,0,0,0); 
+    background:rgba(0,0,0,0); z-index:1; 
+    border:1px solid gray;"></div>
+<div class=code id=de spellcheck="false" autocapitalize="off" autocorrect="off"></div>
+</div>
+</div>
+</body>
+</html>

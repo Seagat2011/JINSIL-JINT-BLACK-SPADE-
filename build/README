@@ -1,6 +1,0 @@
-BLACK SPADE EDITOR
-    javascript editor - written in HTML5,CSS3, & javascript
-
-BUGFIXES
-    SYMP: call to document.getElementById returns null value
-    SOLU: include DEFER javascript attribute tag to defer main.js call

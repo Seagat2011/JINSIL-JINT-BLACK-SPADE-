@@ -53,7 +53,7 @@ function setText(o,w) {
     if('innerText' in o) {
         o.innerText = w
     } else {
-        o.innerHTML = w
+        o.innerHTML = w.replace(/\n/gm,'<br>')
     }
 }
 function getText(o) {
@@ -61,7 +61,9 @@ function getText(o) {
     if('innerText' in o) {
         ret = o.innerText
     } else {
-        ret = o.textContent
+        ret = o.innerHTML
+            .replace(/<\s*\\?\s*br\s*>/gmi,'\n')
+            .replace(/<\s*\\?\s*.+\s*>/gmi,'')
     }
     return ret
 }
@@ -165,7 +167,7 @@ function init() {
     }
     , false)
     te.addEventListener('keydown', function(e) {
-        if (!voidkeycode[e.keycode]) {
+        if (!voidkeycode[e.keycode] && !voidkeycode[e.keyCode]) {
             id = 1
         }
         de.scrollTop = te.scrollTop

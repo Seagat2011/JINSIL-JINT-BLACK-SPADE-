@@ -1,5 +1,8 @@
 
-.code {
+.code-editor {
+
+}
+.code-window {
     font-family:monospace;
     outline:none;
     width:95%;
@@ -10,7 +13,7 @@
     position:absolute;
     z-index:0;
 }
-div#__rows__ {
+.v-rows {
     font-family:monospace;
     text-align:right;
     width:40px;
@@ -24,6 +27,6 @@ div#__rows__ {
     background:#dedede;
     color:#4e4e4e;
 }
-div#__container__ {
-    float:left;
+.code-container {
+    display:inline-block;
 }

@@ -39,7 +39,7 @@ SCRIPT TYPE:
 <link id=__theme__ rel='stylesheet' media='all' href='editor/theme/chrome.css'>
 <link rel='stylesheet' media='all' href='editor/main.css'>
 <script id=__mode__ src='editor/mode/javascript_highlight_rules.js'></script>
-<script src='editor/main.js' defer></script>
+<script src='editor/main.js'></script>
 <script src='main.js' defer></script>
 </head>
 <body>
@@ -267,16 +267,14 @@ SCRIPT TYPE:
   </tbody>
   </table>
 </div>
-<div id=__container__>
-<div id=__rows__></div>
-<div id=__editor__>
-<div  class=code id=te spellcheck="false" autocapitalize="off" autocorrect="off" contenteditable="true" style="
-   -webkit-text-fill-color:rgba(0,0,0,0); 
-    color:rgba(0,0,0,0.2);
-    background:rgba(0,0,0,0); z-index:1; 
-    border:1px solid gray;"></div>
-<div class=code id=de spellcheck="false" autocapitalize="off" autocorrect="off"></div>
-</div>
-</div>
+
+<textarea id=txtarea0></textarea>
+
+<footer>
+<script>
+editor = BLACK_SPADE_EDITOR.fromTextArea('txtarea0')
+</script>
+</footer>
+
 </body>
 </html>
